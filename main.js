@@ -13,6 +13,12 @@ function toggleDesktopMenu(){
         aside.classList.add('inactive');
     }
 
+    const isProductDetailAsideClosed = productDetailContainer.classList.contains('inactive');
+    
+    if (!isProductDetailAsideClosed){
+        productDetailContainer.classList.add('inactive');
+    }
+
     desktopMenu.classList.toggle('inactive');
 };
 
@@ -28,6 +34,12 @@ function toggleMobileMenu(){
 
     if (!isasideClosed) {
         aside.classList.add('inactive');
+    }
+
+    const isProductDetailAsideClosed = productDetailContainer.classList.contains('inactive');
+    
+    if (!isProductDetailAsideClosed){
+        productDetailContainer.classList.add('inactive');
     }
 
     menuHamMobile.classList.toggle('inactive');
@@ -53,10 +65,44 @@ function toggleCarritoAside(){
         desktopMenu.classList.add('inactive');
     }
 
+    const isProductDetailAsideClosed = productDetailContainer.classList.contains('inactive');
+    
+    if (!isProductDetailAsideClosed){
+        productDetailContainer.classList.add('inactive');
+    }
+
     aside.classList.toggle('inactive');
 };
 
 
+//Productos mostrar Aside 
+const productDetailContainer = document.querySelector('.product-detail-2');
+
+function openProductDetailAside(){
+    const isasideClosed = aside.classList.contains('inactive');
+
+    if (!isasideClosed) {
+        aside.classList.add('inactive');
+    }
+
+    const isdesktopMenuClosed = desktopMenu.classList.contains('inactive');
+
+    if (!isdesktopMenuClosed) {
+        desktopMenu.classList.add('inactive');
+    }
+    
+    productDetailContainer.classList.remove('inactive');
+}
+
+//Productos Cerrar aside detalles
+const productDetailCloseIcon = document.querySelector('.product-detail-2-close')
+productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
+
+function closeProductDetailAside(){
+    productDetailContainer.classList.add('inactive');
+}
+
+//PRODUCTOS
 const cardsContainer=document.querySelector('.cards-container');
 
 const productList = [];
@@ -80,8 +126,10 @@ function renderProducts(arr) {for (product of productList){
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
 
+    //Product = {name, price, image} -> product.image
     const productImg = document.createElement('img');
     productImg.setAttribute('src',product.image);
+    productImg.addEventListener('click',openProductDetailAside)
 
     const productInfo = document.createElement('div');
     productInfo.classList.add('product-info');
@@ -112,5 +160,6 @@ function renderProducts(arr) {for (product of productList){
 }
 }
 renderProducts(productList);
+
 
 
